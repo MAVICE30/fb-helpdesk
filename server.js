@@ -99,6 +99,12 @@ app.get('/homepage', async (req, res) => {
   }
 });
 
+function formatDate(datetime) {
+  const date = new Date(datetime);
+  const options = { hour: 'numeric', minute: 'numeric', hour12: false };
+  return date.toLocaleString('en-US', options);
+}
+
 app.get('/messages', async (req, res) => {
   const pageAccessToken = 'EAAUhkngFxNsBO2yU6umvv8JzNcM2RwI4GsHca5CWjBZC7ycosC3Mt0TE1ZCPZBCReyrPRmEaLPQA44XNXz7KjdoYJfSv5jEOQNOR6vAaNpd2vS9OuZA9RcYO2Dp4xK49HXrCoKvfT4reo0FDJc7sR2VFUGbtkB8tVZBA5LnPGcg7jz2bSzHCbFtewXQ0MdjLI';
   const pageId = 'me';
@@ -153,7 +159,7 @@ app.get('/messages', async (req, res) => {
       groupedMessages[message.from].push(message);
     }
 
-    res.render('messages', { messages: groupedMessages });
+    res.render('messages', {messages: groupedMessages ,formatDate});
   } catch (error) {
     console.error('Error fetching and storing Facebook Page messages:', error);
     res.render('messages', { messages: [] });
