@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Choose Facebook Page</title>
+  <!-- Add your CSS styling here -->
+</head>
+<body>
+  <h1>Choose Facebook Page</h1>
+  <form method="POST" action="/dashboard">
+    <label for="page">Select a Facebook Page:</label>
+    <select id="page" name="pageId">
+      <% pages.forEach(page => { %>
+        <option value="<%= page.id %>"><%= page.name %></option>
+      <% }); %>
+    </select>
+    <input type="hidden" name="accessToken" value="<%= accessToken %>">
+    <button type="submit">Connect Page</button>
+  </form>
+</body>
+</html>

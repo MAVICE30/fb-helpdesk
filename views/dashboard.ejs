@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #cbdff1; /* Light Blue Background */
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      height: 100vh; /* Full viewport height */
+      margin: 0; /* Remove default margin */
+    }
+    .container {
+      background-color: #f0f8ff; /* Light Blue Background */
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for container */
+    }
+    h1 {
+      font-size: 24px; /* Increase heading font size */
+      margin-top: 0; /* Remove top margin for h1 */
+    }
+    p {
+      font-size: 18px; /* Increase paragraph font size */
+      margin-top: 20px; /* Add top margin to paragraph */
+    }
+    button {
+      background-color: #0074cc; /* Blue Button Background */
+      color: white; /* White Button Text */
+      border: none;
+      padding: 10px 20px; /* Add padding to button */
+      font-size: 18px; /* Increase button font size */
+      cursor: pointer;
+      border-radius: 5px; /* Add rounded corners to button */
+    }
+    button:hover {
+      background-color: #0057a0; /* Darker Blue on Hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the Dashboard</h1>
+    <p>You can connect your Facebook Page here:</p>
+    <form action="/homepage" method="GET">
+      <button type="submit">Connect to Facebook Page</button>
+    </form>
+  </div>
+</body>
+</html>

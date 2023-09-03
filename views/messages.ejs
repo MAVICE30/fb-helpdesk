@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Messages</title>
+  <style>
+    /* Reset some default styles */
+    body, h1, ul, li, p {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /* Basic styling for the page */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0a6;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 10px 0;
+      background-color: #2d76f4;
+      color: #fff;
+    }
+
+    /* Style for each contact's container */
+    h2 {
+      background-color: #0c58f0;
+      color: #fff;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    /* Style for the message list */
+    ul {
+      padding: 0;
+    }
+
+    /* Style for each message item */
+    li {
+      background-color: #fff;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for the "To" button */
+    li button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      text-decoration: underline;
+      color: #075e54;
+      font-weight: bold;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Style for the message content */
+    p {
+      margin: 5px 0;
+    }
+
+    /* Style for the send message form */
+    form {
+      background-color: #fff;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button[type="submit"] {
+      background-color: #075e54;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.2s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #128c7e;
+    }
+
+    .message-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin: 10px;
+    }
+
+    .message {
+      background-color: #e8e8e84a; /* Background color for incoming messages */
+      border-radius: 10px;
+      padding: 10px;
+      max-width: 70%;
+    }
+
+    .message.incoming {
+      align-self: flex-start;
+    }
+
+    .message p {
+      margin: 0;
+    }
+
+    .message-time {
+      font-size: 12px;
+      color: #999;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Messages</h1>
+  <% Object.keys(messages).forEach(function(from) { %>
+    <div class="sidebar">
+    </div>
+    <span>
+      <ul>
+        <% messages[from].forEach(function(message, index) { %>
+          <% if (index === 0 || message.to !== messages[from][index - 1].to) { %>
+            <li>
+              <button onclick="showMessages('<%= message.to %>')"> <%= message.to %></button>
+              <div id="messages-<%= message.to %>" style="display:none;">
+          <% } %>
+          <div class="message-container">
+            <div class="message incoming">
+              <p><%= message.message %></p>
+              <p class="message-time"><%= message.created_time %></p>
+            </div>
+          </div>
+          <% if (index === messages[from].length - 1 || message.to !== messages[from][index + 1].to) { %>
+            <form onsubmit="sendMessage('<%= message.to %>'); return false;">
+              <input type="text" name="message" placeholder="Enter a message">
+              <button type="submit">Send</button>
+            </form>
+          </div>
+          </li>
+        <% } %>
+      <% }); %>
+    </ul>
+    </span>
+    </div>
+  <% }); %>
+  <script>
+    function showMessages(to) {
+      // Hide all message divs
+      document.querySelectorAll('[id^="messages-"]').forEach(function(div) {
+        div.style.display = 'none';
+      });
+      // Show selected message div
+      document.getElementById('messages-' + to).style.display = 'block';
+    }
+
+    function formatDate(datetime) {
+      const date = new Date(datetime);
+      const options = { hour: 'numeric', minute: 'numeric', hour12: false };
+      return date.toLocaleString('en-US', options);
+    }
+
+    function sendMessage(to) {
+      const input = document.querySelector(`#messages-${to} input[type="text"]`);
+      const message = input.value.trim();
+      if (message !== '') {
+        const messageContainer = document.querySelector(`#messages-${to} .message`);
+        const messageTime = document.querySelector(`#messages-${to} .message-time`);
+
+        // Create a new message element
+        const newMessage = document.createElement('p');
+        newMessage.textContent = message;
+
+        // Create a new message time element
+        const now = new Date();
+        const newMessageTime = document.createElement('p');
+        newMessageTime.textContent = formatDate(now);
+        newMessageTime.className = 'message-time';
+
+        // Append the new message and time to the chat
+        messageContainer.appendChild(newMessage);
+        messageContainer.appendChild(newMessageTime);
+
+        // Clear the input field
+        input.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
