@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(session({
-  secret: '123code321',
+  secret: 'password',
   resave: true,
   saveUninitialized: true,
 }));
@@ -27,7 +27,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb+srv://Anant:haha@helpdesk.depgwve.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true })
+mongoose.connect('--ENTER YOUR MONGO URL --', { useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -85,7 +85,7 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.get('/homepage', async (req, res) => {
-  const pageAccessToken = 'EAAUhkngFxNsBO2yU6umvv8JzNcM2RwI4GsHca5CWjBZC7ycosC3Mt0TE1ZCPZBCReyrPRmEaLPQA44XNXz7KjdoYJfSv5jEOQNOR6vAaNpd2vS9OuZA9RcYO2Dp4xK49HXrCoKvfT4reo0FDJc7sR2VFUGbtkB8tVZBA5LnPGcg7jz2bSzHCbFtewXQ0MdjLI';
+  const pageAccessToken = '--ENTER YOUR TOKEN --';
   const pageId = 'me';
   const fields = 'name';
 
@@ -106,7 +106,7 @@ function formatDate(datetime) {
 }
 
 app.get('/messages', async (req, res) => {
-  const pageAccessToken = 'EAAUhkngFxNsBO2yU6umvv8JzNcM2RwI4GsHca5CWjBZC7ycosC3Mt0TE1ZCPZBCReyrPRmEaLPQA44XNXz7KjdoYJfSv5jEOQNOR6vAaNpd2vS9OuZA9RcYO2Dp4xK49HXrCoKvfT4reo0FDJc7sR2VFUGbtkB8tVZBA5LnPGcg7jz2bSzHCbFtewXQ0MdjLI';
+  const pageAccessToken = '--ENTER YOUR TOKEN --';
   const pageId = 'me';
   const fields = 'conversations{participants,messages{message,from,created_time}}';
 
@@ -167,7 +167,7 @@ app.get('/messages', async (req, res) => {
 });
 
 app.post('/messages', async (req, res) => {
-  const pageAccessToken = 'EAAUhkngFxNsBO2yU6umvv8JzNcM2RwI4GsHca5CWjBZC7ycosC3Mt0TE1ZCPZBCReyrPRmEaLPQA44XNXz7KjdoYJfSv5jEOQNOR6vAaNpd2vS9OuZA9RcYO2Dp4xK49HXrCoKvfT4reo0FDJc7sR2VFUGbtkB8tVZBA5LnPGcg7jz2bSzHCbFtewXQ0MdjLI';
+  const pageAccessToken = '--ENTER YOUR TOKEN --';
   const recipientId = 't_782352983692035'; 
   const message = req.body.message;
 
